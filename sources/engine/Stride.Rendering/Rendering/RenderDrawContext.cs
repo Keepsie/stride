@@ -17,6 +17,9 @@ namespace Stride.Rendering
         private int currentStateIndex = -1;
         private readonly List<RenderTargetsState> allocatedStates = new List<RenderTargetsState>(10);
 
+        // Add property to track UI rendering
+        public bool IsRenderingUI { get; set; }
+
         private readonly Dictionary<Type, DrawEffect> sharedEffects = new Dictionary<Type, DrawEffect>();
 
         public RenderDrawContext(IServiceRegistry services, RenderContext renderContext, GraphicsContext graphicsContext)

@@ -231,10 +231,11 @@ namespace Stride.Rendering.Images
 
         public void Draw(RenderDrawContext drawContext, RenderOutputValidator outputValidator, Texture[] inputs, Texture inputDepthStencil, Texture outputTarget)
         {
+
             var colorIndex = outputValidator.Find<ColorTargetSemantic>();
             if (colorIndex < 0)
                 return;
-            
+
             SetInput(0, inputs[colorIndex]);
             SetInput(1, inputDepthStencil);
 
@@ -276,6 +277,8 @@ namespace Stride.Rendering.Images
 
         protected override void DrawCore(RenderDrawContext context)
         {
+
+
             var input = GetInput(0);
             var output = GetOutput(0);
             if (input == null || output == null)
@@ -284,6 +287,17 @@ namespace Stride.Rendering.Images
             }
 
             var inputDepthTexture = GetInput(1); // Depth
+
+            if (context.IsRenderingUI)
+            {
+                if (input != output)
+                {
+                    Scaler.SetInput(input);
+                    Scaler.SetOutput(output);
+                    Scaler.Draw(context);
+                }
+                return;
+            }
 
             // Update the parameters for this post effect
             if (!Enabled)

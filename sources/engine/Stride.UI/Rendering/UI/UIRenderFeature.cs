@@ -88,6 +88,9 @@ namespace Stride.Rendering.UI
             if (uiProcessor == null)
                 return;
 
+            // Set flag that we're rendering UI
+            context.IsRenderingUI = true;
+
 
             // build the list of the UI elements to render
             uiElementStates.Clear();
